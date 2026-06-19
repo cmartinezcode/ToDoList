@@ -1,0 +1,8 @@
+{
+  "type":"module",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.2.2",
+    "axios": "^1.14.0",
+    "tailwindcss": "^4.2.2"
+  }
+}
