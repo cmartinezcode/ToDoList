@@ -94,24 +94,25 @@ function renderTasks(tasks) {
     const li = document.createElement("li");
 
     li.className =
-      "flex items-center justify-between bg-gray-50 p-3 rounded-lg shadow-sm";
+      "flex items-center justify-between bg-gray-50 p-2 rounded-lg shadow-sm";
 
     li.innerHTML = `
-        <span class="text-lg text-gray-800 ${task.status ? "line-through opacity-50" : ""}">${task.name}</span>
-        <div class="flex gap-2">
+        <span class="text-xl text-gray-800 ${task.status ? "line-through opacity-50" : ""}">${task.name}</span>
+        <div class="flex gap-4">
         <svg 
-            class="text-gray-600 cursor-pointer rounded w-5 h-5" 
+            class="text-gray-600 cursor-pointer rounded w-6 h-6" 
             onclick='editTask(${task.id} , ${JSON.stringify(task.name)}, ${task.status})' >
             <use href="../dist/symbol/svg/sprite.css.svg#edit-3"></use>
         </svg>
 
         <svg 
-          class="text-gray-600 cursor-pointer rounded w-5 h-5"onclick='completeTask(${task.id} , ${JSON.stringify(task.name)}, ${task.status})' >
+          class="text-gray-600 cursor-pointer rounded w-6 h-6"
+          onclick='completeTask(${task.id} , ${JSON.stringify(task.name)}, ${task.status})' >
           <use href="../dist/symbol/svg/sprite.css.svg#check"></use> 
         </svg>
         
         <svg 
-            class="text-gray-600 cursor-pointer rounded w-5 h-5" 
+            class="text-gray-600 cursor-pointer rounded w-6 h-6" 
             onclick="deleteTask(${task.id})" >
             <use href="../dist/symbol/svg/sprite.css.svg#trash-2"></use>
         </svg>
