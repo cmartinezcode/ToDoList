@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>To-Do App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+    <!-- <link href="css/output.css" rel="stylesheet" /> Muy lento, en produccion copmpilamos, en desarrollo usamos cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+
+
+  <body class="font-mono">
+    <div
+      class="bg-gray-100 flex lg:items-center lg:justify-center min-h-screen"
+    >
+      <div class="bg-white w-full md:w-3xl rounded-2xl shadow-lg">
+        <!-- Título -->
+        <div
+          id="container-header"
+          class="bg-white shadow mb-2 items-center pb-1 fixed top-0 left-0 w-full z-10 h-56 p-3"
+        >
+          <div class="mb-8 mt-6">
+            <div class="flex gap-4 justify-center items-center w-full">
+              <i class="fa-solid fa-business-time text-3xl text-cyan-700"></i>
+              <p class="text-3xl font-bold text-gray-700">ToDo List</p>
+            </div>
+            <div class="flex justify-center items-center gap-2">
+              <p>Organiza tu día</p>
+              <i class="text-red-700 fa-solid fa-heart text-md"> </i>
+            </div>
+          </div>
+          <ul class="flex justify-between mt-2 mb-2">
+            <li onclick="getTasks()" class=" cursor-pointer text-lg">Tareas</li>
+            <li onclick="filterPendingTasks()" class="cursor-pointer text-lg">Pendientes</li>
+            <li onclick="filterCompletedTasks()" class="cursor-pointer text-lg">
+              Completadas
+            </li>
+          </ul>
+
+          <!-- Input -->
+          <div class="flex items-center gap-3 mb-5">
+            <!-- items-center es igual a align-item: center-->
+            <input
+              id="taskText"
+              type="text"
+              placeholder="Nueva tarea..."
+              class="text-lg flex-1 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-blue-300"
+            />
+
+            <i
+              id="createTaskButton"
+              class="text-4xl fa-solid fa-circle-plus text-emerald-700 cursor-pointer"
+            ></i>
+          </div>
+        </div>
+
+        <!-- Lista de tareas -->
+        <ul class="pt-56 mt-2 pl-2 pr-2 space-y-2" id="taskList"></ul>
+      </div>
+    </div>
+
+   
+
+<!-- Estructura del Modal (Empieza oculto con 'hidden')
+Primer div es la capa difunidad
+empieza con hidden
+sin flex -> hacemos toogle en js
+-->
+    <div
+      id="modal"
+      class="hidden fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-xs p-4"
+    >
+      <!-- Contenedor del contenido (Animado y con tamaño máximo) -->
+      <div
+        class="w-full max-w-md bg-white rounded-xl shadow-xl transform transition-all overflow-hidden"
+      >
+        <!-- Encabezado -->
+        <div
+          class="flex items-center justify-between border-b border-gray-100 px-6 py-4"
+        >
+          <div id="iconModal"></div>
+          <h3 id="titleModal" class="text-lg font-semibold text-gray-900">
+            !Titulo modal!
+            <!-- Lo cambiaremos segun sea el caso -->
+          </h3>
+          <!-- Botón X para cerrar -->
+          <i
+            onclick="closeModal()"
+            class="fa-solid fa-x cursor-pointer text-gray-400 p-1 rounded hover:bg transition-colors hover:bg-red-800 hover:text-white"
+          >
+          </i>
+        </div>
+
+        <div class="flex flex-col justify-center">
+          <!-- Cuerpo -->
+        <div
+          id="messageModal"
+          class="px-6 py-4 text-sm text-gray-600 leading-relaxed"
+        >
+          Mensaje modal (será cambiado segun sea el caso)
+        </div>
+        <!-- input en caso de editar tarea -->
+         <input id="inputTaskName" type="text" class="hidden mx-6 p-2 shadow rounded mb-4" placeholder="Ingrese la tarea">
+        </div>
+        <!-- Pie de página (Botones de acción) -->
+        <div
+          class="flex items-center justify-end space-x-3 border-t border-gray-100 bg-gray-50 px-6 py-2"
+        >
+          <button
+            onclick="closeModal()"
+            id="cancelModal"
+            type="button"
+            class="cursor-pointer px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            Cancelar
+          </button>
+          <button
+            id="acceptModal"
+            type="button"
+            class="cursor-pointer px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="js/app.js"></script>
+  </body>
+</html>

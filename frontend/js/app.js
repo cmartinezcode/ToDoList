@@ -1,53 +1,151 @@
+/*
+ * Declaracion de variables globales
+ */
+
 const IP_SERVER = "192.168.1.4";
 let loading = false;
 let allTasks = [];
-let currentFilter = "all";
+let taskDuplicated = false;
+let currentFilter = "all"; //pendiente
 const createTaskButton = document.getElementById("createTaskButton");
-
-const modalEdit = document.getElementById("modalEditTask");
-const editTaskInput = document.getElementById("editTaskInput");
-const modalButtonGuardar = document.getElementById("modalButtonGuardar");
-const modalButtonCancelar = document.getElementById("modalButtonCancelar");
-const buttonsModal = document.getElementById("buttonsModal");
-
-const alertalertStatus = document.getElementById("alertStatus");
-const msgAlert = document.getElementById("msgAlert");
-const alertOk = document.getElementById("alertOk");
-
+const cancelModal = document.getElementById("cancelModal");
+const acceptModal = document.getElementById("acceptModal");
 const taskText = document.getElementById("taskText");
-const cancelarAlert = document.getElementById("cancelarAlert");
+let idTaskDelete = null;
 
-function generateMsgAlert(msg) {
-  alertalertStatus.classList.replace("opacity-0", "opacity-100");
-  alertalertStatus.classList.replace(
-    "pointer-events-none",
-    "pointer-events-auto",
-  );
-  msgAlert.textContent = "";
-  msgAlert.textContent = msg;
+console.log();
+
+/*
+ * Array mensajes de modal
+ */
+
+let mesgModal = [
+  {
+    icon: '<i class="fa-solid fa-triangle-exclamation text-yellow-500 text-2xl"></i>',
+    title: "!Tarea invalida!",
+    message: "La tarea no puede estar vacia o  tener  menos de 3 caracteres.",
+    cancelView: false,
+  },
+  {
+    icon: '<i class="fa-solid fa-trash-can text-red-500 text-2xl"></i>',
+    title: "¿Eliminar tarea?",
+    message:
+      "¿Esta seguro que desea eliminar esta tarea? Esta accion no se puede retroceder.",
+    cancelView: false,
+  },
+  {
+    icon: '<i class="fa-solid fa-triangle-exclamation text-yellow-500 text-2xl"></i>',
+    title: "Tarea completada",
+    message:
+      "!Esta tarea ya fue completada! Por favor, cree una nueva tarea o elimine esta.",
+    cancelView: false,
+  },
+  {
+    icon: '<i class="fa-solid fa-pen-clip text-cyan-800 text-2xl"></i>',
+    title: "Editar tarea",
+    message: "Ingrese el nuevo nombre de la tarea:",
+    cancelView: false,
+  },
+  {
+    icon: '<i class="fa-solid fa-clone text-orange-600 text-2xl"></i>',
+    title: "Tarea existente",
+    message: "Esta tarea ya existe, cree otra tarea o elimine la ya existente",
+    cancelView: false,
+  },
+
+  {
+    icon: '<i class="fa-solid fa-cat text-gray-700/75 text-2xl"></i>',
+    title: "App de tareas",
+    message: 'Esta aplicacion ha sido desarrollada por <a href="https://github.com/cmartinezcode/ToDoList.git" class="text-cyan-700 font-bold" target="_blank">Cristian Martinez</a> , bajo la licencia MIT.',
+    cancelView: false,
+  },
+];
+
+/*
+ * Funciones
+ */
+
+const modal = document.getElementById("modal");
+
+function renderModal(nModal, cancelView, accion) {
+  if (!cancelView) {
+    document.getElementById("cancelModal").classList.add("hidden");
+  }
+  document.getElementById("iconModal").innerHTML = nModal.icon;
+  document.getElementById("titleModal").innerHTML = nModal.title;
+  document.getElementById("messageModal").innerHTML = nModal.message;
+  document.getElementById("acceptModal").onclick = accion;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
 }
-cancelarAlert.addEventListener("click", () => {
-  taskText.focus();
-  alertalertStatus.classList.replace("opacity-100", "opacity-0");
-  alertalertStatus.classList.replace(
-    "pointer-events-auto",
-    "pointer-events-none",
-  );
-});
 
-alertOk.addEventListener("click", () => {
+function closeModal() {
   taskText.focus();
-  alertalertStatus.classList.replace("opacity-100", "opacity-0");
-  alertalertStatus.classList.replace(
-    "pointer-events-auto",
-    "pointer-events-none",
-  );
-});
+  document.getElementById("cancelModal").classList.remove("hidden");
+  document.getElementById("inputTaskName").classList.add("hidden");
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
+}
+
+function renderTasks(tasks) {
+  const list = document.getElementById("taskList");
+  list.innerHTML = "";
+
+  tasks.forEach((task) => {
+    const li = document.createElement("li");
+
+    li.className =
+      "flex items-center justify-between bg-gray-50 p-2 rounded-lg shadow-sm";
+
+    li.innerHTML = `
+        <span class="text-xl text-gray-800 ${task.status ? "line-through opacity-50" : ""}">${task.name}</span>
+        <div class="flex gap-4">
+        
+        <i 
+          class="fa-solid fa-pen text-gray-600 cursor-pointer rounded text-lg"
+          onclick='editTask(${task.id} , ${JSON.stringify(task.name)}, ${task.status})'  
+        ></i>
+        
+        <i 
+          class="fa-solid fa-check text-gray-600 cursor-pointer rounded text-lg"
+          onclick='completeTask(${task.id} , ${JSON.stringify(task.name)}, ${task.status})'
+        ></i>
+
+        <i 
+          class="fa-regular fa-trash-can text-gray-600 cursor-pointer rounded text-lg"
+          onclick="confirmDeleteTask(${task.id}); renderModal(mesgModal[1], true, deleteTask)"   
+        ></i>
+
+        </div>
+      `;
+
+    list.appendChild(li);
+  });
+}
+
+/*Mostrar modal con metodo toggle */
+
+/*
+ * Funciones asincronas al servidor
+ */
+function verificedTaskDuplicate() {
+  renderModal(mesgModal[4], false, closeModal);
+  taskDuplicated = false;
+  return;
+}
 
 async function createTask() {
-  if (taskText.value === "") {
-    generateMsgAlert("La tarea no puede estar vacia!");
+  if (taskText.value.length < 3) {
+    renderModal(mesgModal[0], false, closeModal);
     return;
+  }
+
+  for (const task of allTasks) {
+    if (taskText.value === task.name) {
+      taskDuplicated = true;
+      verificedTaskDuplicate();
+      return;
+    }
   }
 
   try {
@@ -84,45 +182,6 @@ async function getTasks() {
   }
 }
 
-
-function renderTasks(tasks) {
-  taskText.focus();
-  const list = document.getElementById("taskList");
-  list.innerHTML = "";
-
-  tasks.forEach((task) => {
-    const li = document.createElement("li");
-
-    li.className =
-      "flex items-center justify-between bg-gray-50 p-2 rounded-lg shadow-sm";
-
-    li.innerHTML = `
-        <span class="text-xl text-gray-800 ${task.status ? "line-through opacity-50" : ""}">${task.name}</span>
-        <div class="flex gap-4">
-        <svg 
-            class="text-gray-600 cursor-pointer rounded w-6 h-6" 
-            onclick='editTask(${task.id} , ${JSON.stringify(task.name)}, ${task.status})' >
-            <use href="../dist/symbol/svg/sprite.css.svg#edit-3"></use>
-        </svg>
-
-        <svg 
-          class="text-gray-600 cursor-pointer rounded w-6 h-6"
-          onclick='completeTask(${task.id} , ${JSON.stringify(task.name)}, ${task.status})' >
-          <use href="../dist/symbol/svg/sprite.css.svg#check"></use> 
-        </svg>
-        
-        <svg 
-            class="text-gray-600 cursor-pointer rounded w-6 h-6" 
-            onclick="deleteTask(${task.id})" >
-            <use href="../dist/symbol/svg/sprite.css.svg#trash-2"></use>
-        </svg>
-        </div>
-      `;
-
-    list.appendChild(li);
-  });
-}
-
 function filterPendingTasks() {
   console.log("filtrando tareas pendientes...");
   const pendingTasks = allTasks.filter((task) => {
@@ -141,26 +200,23 @@ function filterCompletedTasks() {
   renderTasks(completedTasks);
 }
 
-async function deleteTask(id) {
-  generateMsgAlert("Deseas eliminar esta tarea?");
-  alertOk.addEventListener(
-    "click",
-    async () => {
-      try {
-        const response = await axios.delete(
-          `http://${IP_SERVER}:3000/tasks/${id}`,
-        );
-        console.log(response.data.message);
-        await getTasks();
-      } catch (error) {}
-    },
-    { once: true },
-  );
+function confirmDeleteTask(id) {
+  idTaskDelete = id;
+}
+
+async function deleteTask() {
+  const id = idTaskDelete;
+  try {
+    const response = await axios.delete(`http://${IP_SERVER}:3000/tasks/${id}`);
+    console.log(response.data.message);
+    await getTasks();
+  } catch (error) {}
+  closeModal();
 }
 
 async function completeTask(id, name, status) {
-  if (status === true) {
-    generateMsgAlert("Esta tarea ya esta completada!");
+  if (status) {
+    renderModal(mesgModal[2], false, closeModal);
     return;
   }
   try {
@@ -173,53 +229,52 @@ async function completeTask(id, name, status) {
   } catch (error) {}
 }
 
-function cerrarModal() {
-  modalEdit.classList.replace("opacity-100", "opacity-0");
-  modalEdit.classList.replace("pointer-events-auto", "pointer-events-none");
-
-  buttonsModal.classList.replace("pointer-events-auto", "pointer-events-none");
-
-  editTaskInput.value = "";
-  return;
-}
-
 async function editTask(id, name, status) {
   if (status) {
-    generateMsgAlert("Esta tarea no se puede editar!");
+    renderModal(mesgModal[2], false, closeModal);
     return;
   }
-  modalEdit.classList.replace("opacity-0", "opacity-100");
-  modalEdit.classList.replace("pointer-events-none", "pointer-events-auto");
+  const input = document.getElementById("inputTaskName");
 
-  buttonsModal.classList.replace("pointer-events-none", "pointer-events-auto");
-  editTaskInput.value = name;
-  editTaskInput.focus();
+  input.classList.remove("hidden");
+  renderModal(mesgModal[3], false, taskEdited);
+  input.focus();
 
-  modalButtonCancelar.onclick = () => {
-    cerrarModal();
-    return;
-  };
+  async function taskEdited() {
+    if (input.value === "") {
+      closeModal();
+      return;
+    }
 
-  modalButtonGuardar.onclick = async () => {
+    for (const task of allTasks) {
+      if (input.value === task.name) {
+        taskDuplicated = true;
+        closeModal();
+        verificedTaskDuplicate();
+        return;
+      }
+    }
+
     try {
       status = false;
-      name = editTaskInput.value;
+      name = input.value;
       const response = await axios.put(`http://${IP_SERVER}:3000/tasks/${id}`, {
         name,
         status,
       });
-      editTaskInput.value = "";
+      input.value = "";
       console.log("tarea editada exitosamente");
       await getTasks();
-      cerrarModal();
+      closeModal();
       return;
     } catch (error) {}
-  };
+  }
 }
 
 window.onload = () => {
   getTasks();
   taskText.focus();
+  renderModal(mesgModal[5],false,closeModal)
 };
 
 taskText.addEventListener("keydown", (e) => {
