@@ -1,8 +1,9 @@
 /*
  * Declaracion de variables globales
- */
 
-const IP_SERVER = "192.168.1.4";
+const SERVER = "https://todolist-euh0.onrender.com";
+ */
+const SERVER = "192.168.1.4:";
 let loading = false;
 let allTasks = [];
 let taskDuplicated = false;
@@ -150,7 +151,7 @@ async function createTask() {
 
   try {
     const task = taskText.value;
-    const response = await axios.post(`http://${IP_SERVER}:3000/tasks`, {
+    const response = await axios.post(`${SERVER}/tasks`, {
       name: task,
     });
 
@@ -171,7 +172,7 @@ async function getTasks() {
   try {
     loading = true;
     const { data: tasks, error: error } = await axios.get(
-      `http://${IP_SERVER}:3000/tasks`,
+      `${SERVER}/tasks`,
     );
     renderTasks(tasks); // paso como parametro el array de la respuesta de get y dibujo las tareas
     return (allTasks = tasks); // guardo todas las tareas en un variable global
@@ -207,7 +208,7 @@ function confirmDeleteTask(id) {
 async function deleteTask() {
   const id = idTaskDelete;
   try {
-    const response = await axios.delete(`http://${IP_SERVER}:3000/tasks/${id}`);
+    const response = await axios.delete(`${SERVER}/tasks/${id}`);
     console.log(response.data.message);
     await getTasks();
   } catch (error) {}
@@ -221,7 +222,7 @@ async function completeTask(id, name, status) {
   }
   try {
     status = true;
-    const response = await axios.put(`http://${IP_SERVER}:3000/tasks/${id}`, {
+    const response = await axios.put(`${SERVER}/tasks/${id}`, {
       name,
       status,
     });
@@ -258,7 +259,7 @@ async function editTask(id, name, status) {
     try {
       status = false;
       name = input.value;
-      const response = await axios.put(`http://${IP_SERVER}:3000/tasks/${id}`, {
+      const response = await axios.put(`${SERVER}/tasks/${id}`, {
         name,
         status,
       });
