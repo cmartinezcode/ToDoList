@@ -1,9 +1,8 @@
 /*
  * Declaracion de variables globales
-
-const SERVER = "https://todolist-euh0.onrender.com";
  */
 
+const SERVER = "https://todolist-euh0.onrender.com";
 let loading = false;
 let allTasks = [];
 let taskDuplicated = false;
