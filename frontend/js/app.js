@@ -3,7 +3,7 @@
 
 const SERVER = "https://todolist-euh0.onrender.com";
  */
-const SERVER = "192.168.1.4:";
+
 let loading = false;
 let allTasks = [];
 let taskDuplicated = false;
