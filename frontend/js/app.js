@@ -54,7 +54,7 @@ let mesgModal = [
   },
 
   {
-    icon: '<i class="fa-solid fa-cat text-gray-700/75 text-2xl"></i>',
+    icon: '<i class="fa-solid fa-cat text-gray-700/75 text-2xl md:text-3xl"></i>',
     title: "App de tareas",
     message: 'Esta aplicacion ha sido desarrollada por <a href="https://github.com/cmartinezcode/ToDoList.git" class="text-cyan-700 font-bold" target="_blank">Cristian Martinez</a> , bajo la licencia MIT.',
     cancelView: false,

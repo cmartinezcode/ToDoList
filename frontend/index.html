@@ -8,21 +8,22 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
-    <!-- <link href="css/output.css" rel="stylesheet" /> Muy lento, en produccion copmpilamos, en desarrollo usamos cdn-->
+    <!--<link href="css/output.css" rel="stylesheet" /> -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
   </head>
 
 
-  <body class="font-mono">
+  <body class="font-mono bg-gray-600/30">
     <div
-      class="bg-gray-100 flex lg:items-center lg:justify-center min-h-screen"
+      class="flex justify-center min-h-screen"
     >
       <div class="bg-white w-full md:w-3xl rounded-2xl shadow-lg">
-        <!-- Título -->
+        <!-- header main -->
         <div
           id="container-header"
-          class="bg-white shadow mb-2 items-center pb-1 fixed top-0 left-0 w-full z-10 h-56 p-3"
+          class="bg-white w-full shadow mb-2 items-center pb-1 fixed top-0 xs:left-0 md:w-3xl  h-56 p-3"
         >
           <div class="mb-8 mt-6">
             <div class="flex gap-4 justify-center items-center w-full">
@@ -73,25 +74,25 @@ sin flex -> hacemos toogle en js
 -->
     <div
       id="modal"
-      class="hidden fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-xs p-4"
+      class=" hidden fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-xs p-4"
     >
       <!-- Contenedor del contenido (Animado y con tamaño máximo) -->
       <div
-        class="w-full max-w-md bg-white rounded-xl shadow-xl transform transition-all overflow-hidden"
+        class="w-full max-w-md md:max-w-lg bg-white rounded-xl shadow-xl transform transition-all overflow-hidden"
       >
         <!-- Encabezado -->
         <div
           class="flex items-center justify-between border-b border-gray-100 px-6 py-4"
         >
           <div id="iconModal"></div>
-          <h3 id="titleModal" class="text-lg font-semibold text-gray-900">
+          <h3 id="titleModal" class="text-lg md:text-2xl font-semibold text-gray-900">
             !Titulo modal!
             <!-- Lo cambiaremos segun sea el caso -->
           </h3>
           <!-- Botón X para cerrar -->
           <i
             onclick="closeModal()"
-            class="fa-solid fa-x cursor-pointer text-gray-400 p-1 rounded hover:bg transition-colors hover:bg-red-800 hover:text-white"
+            class="fa-solid fa-x cursor-pointer md:text-2xl text-gray-400 p-1 rounded hover:bg transition-colors hover:bg-red-800 hover:text-white"
           >
           </i>
         </div>
@@ -100,7 +101,7 @@ sin flex -> hacemos toogle en js
           <!-- Cuerpo -->
         <div
           id="messageModal"
-          class="px-6 py-4 text-sm text-gray-600 leading-relaxed"
+          class=" md:text-lg px-6 py-4 text-sm text-gray-600 leading-relaxed"
         >
           Mensaje modal (será cambiado segun sea el caso)
         </div>
@@ -122,7 +123,7 @@ sin flex -> hacemos toogle en js
           <button
             id="acceptModal"
             type="button"
-            class="cursor-pointer px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors"
+            class=" md:text-lg md:my-2 cursor-pointer px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors"
           >
             Aceptar
           </button>
