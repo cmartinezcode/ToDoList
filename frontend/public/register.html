@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../css/output.css" />
+    <title>Register Todo-List</title>
+  </head>
+  <body class="bg-primary font-mono min-h-screen flex flex-col">
+    <header
+      class="w-full flex gap-3 px-6 py-4 border-b border-amber-50 shadow justify-between items-center bg-primary"
+    >
+      <span class="brand-font text-xl font-semibold text-[#1E3A5F]"
+        >To-Do App</span
+      >
+      <a
+        href="login.html"
+        class="bg-secondary text-md font-bold transition-all duration-100 hover:-translate-y-1 text-white px-3 py-2 rounded-full hover:bg-[#1E3A5F]"
+        >Ingresar</a
+      >
+    </header>
+
+    <div class="flex-1 flex my-6 justify-center items-center">
+      <div class="w-full max-w-100 mx-4 shadow rounded-md bg-white">
+        <div
+          class="bg-secondary header-form flex justify-center rounded-t-md py-3 relative"
+        >
+          <h3 class="text-white text-xl py-2">Registro</h3>
+        </div>
+        <div class="header-body flex flex-col items-center">
+          <div class="w-4/5 flex justify-center my-4 h-9">
+            <div
+              class="bg-secondary rounded-l-md flex justify-center items-center px-3"
+            >
+              <i class="text-white fa-solid fa-user"></i>
+            </div>
+            <input
+              id="username"
+              class="shadow text-sm p-1 flex-1 rounded-r-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
+              type="text"
+              placeholder="Usuario"
+            />
+          </div>
+          <div class="relative flex justify-center w-4/5 h-9 mb-5">
+            <div
+              class="bg-secondary rounded-l-md flex justify-center items-center px-3"
+            >
+              <i class="text-white fa-solid fa-lock"></i>
+            </div>
+            <input
+              id="password"
+              class="shadow text-sm p-1 flex-1 rounded-r-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
+              type="password"
+              placeholder="Contraseña"
+            />
+            <button
+              type="button"
+              id="togglePassword"
+              class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <i id="eyeIcon" class="fa-regular fa-eye-slash text-md"></i>
+            </button>
+          </div>
+          <div class="relative flex justify-center w-4/5 h-9 mb-5">
+            <div
+              class="bg-secondary rounded-l-md flex justify-center items-center px-3"
+            >
+              <i class="text-white fa-solid fa-lock"></i>
+            </div>
+            <input
+              id="passwordConfirm"
+              class="shadow text-sm p-1 flex-1 rounded-r-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
+              type="password"
+              placeholder="Contraseña"
+            />
+            <button
+              type="button"
+              id="togglePassword"
+              class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <i id="eyeIcon" class="fa-regular fa-eye-slash text-md"></i>
+            </button>
+          </div>
+          <div class="w-2/5 gap-2 flex justify-center">
+            <button
+              type="submit"
+              id="registerButton"
+              onclick="sendDataUser()"
+              class="bg-secondary cursor-pointer px-3 py-1 rounded-md text-white mb-3"
+            >
+              Registro
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="modalCreateUser"
+      class="fixed hidden inset-0 bg-black/50 items-center justify-center p-4"
+    >
+      <div
+        class="bg-white p-6 rounded-xl shadow-xl max-w-sm w-full animate-[ping_0.4s_cubic-bezier(0.34,1.56,0.64,1)_1]"
+      >
+        <div class="text-center">
+          <div
+            class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4"
+          >
+            <i class="fa-solid fa-check text-green-600 text-xl"></i>
+          </div>
+
+          <h3 class="text-lg font-bold text-gray-900">¡Conexión Exitosa!</h3>
+          <p class="text-sm text-gray-500 mt-1">
+            El usuario ha sido creado correctamente.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <button
+            id="userCreated"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+          >
+            Continuar
+          </button>
+        </div>
+      </div>
+    </div>
+
+     <div
+      id="modalErrorPassword"
+      class="fixed hidden inset-0 bg-black/50 items-center justify-center p-4"
+    >
+      <div
+        class="bg-white p-6 rounded-xl shadow-xl max-w-sm w-full animate-pulse-once"
+      >
+        <div class="text-center">
+          <div
+            class="mx-auto flex items-center justify-center h-12 w-12 rounded-full mb-4"
+          >
+            <i class="fa-solid fa-square-xmark text-red-700/70"></i>
+          </div>
+
+          <h3 class="text-lg font-bold ">¡Error en el registro!</h3>
+          <p class="text-smt text-red-700/70 mt-1">
+            Las contraseñas no coinciden
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <button
+            id="notPassword"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+          >
+            Continuar
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="border-t-[.5px] bg-primary shadow">
+      <div
+        class="w-full bg-transparent py-6 px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[#1E3A5F]/90 max-w-7xl text-lg mx-auto"
+      >
+        <div class="flex items-center gap-1.5">
+          <span>Hecho con</span>
+          <span class="text-red-500 animate-pulse">❤️</span>
+          <span>y mucho JavaScript</span>
+        </div>
+        <div class="flex items-center gap-6 text-3xl text-[#1E3A5F]/80">
+          <a
+            href="https://github.com/cmartinezcode/"
+            class="hover:text-secondary hover:scale-120 transition-transform"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/cmartinezcode/"
+            class="hover:text-secondary hover:scale-120 transition-transform"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          <a
+            href="mailto:martinez.1705.cristian@gmail.com"
+            class="hover:text-secondary hover:scale-120 transition-transform"
+            ><i class="fas fa-envelope"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/register.js"></script>
+  </body>
+</html>

@@ -2,7 +2,7 @@
  * Declaracion de variables globales
  */
 
-const SERVER = "https://todolist-euh0.onrender.com";
+const token = localStorage.getItem("token");
 let loading = false;
 let allTasks = [];
 let taskDuplicated = false;
@@ -56,7 +56,8 @@ let mesgModal = [
   {
     icon: '<i class="fa-solid fa-cat text-gray-700/75 text-2xl md:text-3xl"></i>',
     title: "App de tareas",
-    message: 'Esta aplicacion ha sido desarrollada por <a href="https://github.com/cmartinezcode/ToDoList.git" class="text-cyan-700 font-bold" target="_blank">Cristian Martinez</a> , bajo la licencia MIT.',
+    message:
+      'Esta aplicacion ha sido desarrollada por <a href="https://github.com/cmartinezcode/ToDoList.git" class="text-cyan-700 font-bold" target="_blank">Cristian Martinez</a> , bajo la licencia MIT.',
     cancelView: false,
   },
 ];
@@ -128,6 +129,7 @@ function renderTasks(tasks) {
 /*
  * Funciones asincronas al servidor
  */
+
 function verificedTaskDuplicate() {
   renderModal(mesgModal[4], false, closeModal);
   taskDuplicated = false;
@@ -150,9 +152,19 @@ async function createTask() {
 
   try {
     const task = taskText.value;
-    const response = await axios.post(`${SERVER}/tasks`, {
-      name: task,
-    });
+
+    const response = await axios.post(
+      `${CONFIG.API_URL}/tasks`,
+      {
+        name: task,
+        status: false,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
 
     console.log("mensaje:", response.data.message); // mostrar respuesta del backend
 
@@ -170,9 +182,11 @@ async function getTasks() {
   if (loading) return;
   try {
     loading = true;
-    const { data: tasks, error: error } = await axios.get(
-      `${SERVER}/tasks`,
-    );
+    const { data: tasks } = await axios.get(`${CONFIG.API_URL}/tasks`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     renderTasks(tasks); // paso como parametro el array de la respuesta de get y dibujo las tareas
     return (allTasks = tasks); // guardo todas las tareas en un variable global
   } catch (error) {
@@ -207,7 +221,11 @@ function confirmDeleteTask(id) {
 async function deleteTask() {
   const id = idTaskDelete;
   try {
-    const response = await axios.delete(`${SERVER}/tasks/${id}`);
+    const response = await axios.delete(`${CONFIG.API_URL}/tasks/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(response.data.message);
     await getTasks();
   } catch (error) {}
@@ -221,10 +239,18 @@ async function completeTask(id, name, status) {
   }
   try {
     status = true;
-    const response = await axios.put(`${SERVER}/tasks/${id}`, {
-      name,
-      status,
-    });
+    const response = await axios.put(
+      `${CONFIG.API_URL}/tasks/${id}`,
+      {
+        name,
+        status,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
     await getTasks();
   } catch (error) {}
 }
@@ -258,10 +284,18 @@ async function editTask(id, name, status) {
     try {
       status = false;
       name = input.value;
-      const response = await axios.put(`${SERVER}/tasks/${id}`, {
-        name,
-        status,
-      });
+      const response = await axios.put(
+        `${CONFIG.API_URL}/tasks/${id}`,
+        {
+          name,
+          status,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
       input.value = "";
       console.log("tarea editada exitosamente");
       await getTasks();
@@ -274,7 +308,7 @@ async function editTask(id, name, status) {
 window.onload = () => {
   getTasks();
   taskText.focus();
-  renderModal(mesgModal[5],false,closeModal)
+  renderModal(mesgModal[5], false, closeModal);
 };
 
 taskText.addEventListener("keydown", (e) => {

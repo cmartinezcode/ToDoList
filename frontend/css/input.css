@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+
+@theme {
+  --color-primary: #a9d3d8;
+  --color-secondary: #2B5C8F;
+  --animate-pulse-once: pulse 3s ease-in-out 1;
+  --font-body: "Inter", sans-serif;
+  --spacing-sidebar: 18rem;
+}
