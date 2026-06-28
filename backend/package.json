@@ -16,10 +16,11 @@
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "e": "^0.2.33",
-    "expres": "^0.0.5",
     "express": "^5.2.1",
-    "pg": "^8.20.0"
+    "express-rate-limit": "^8.5.2",
+    "helmet": "^8.2.0",
+    "pg": "^8.20.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

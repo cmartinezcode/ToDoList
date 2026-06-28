@@ -6,14 +6,11 @@ const token = localStorage.getItem("token");
 let loading = false;
 let allTasks = [];
 let taskDuplicated = false;
-let currentFilter = "all"; //pendiente
 const createTaskButton = document.getElementById("createTaskButton");
 const cancelModal = document.getElementById("cancelModal");
 const acceptModal = document.getElementById("acceptModal");
 const taskText = document.getElementById("taskText");
 let idTaskDelete = null;
-
-console.log();
 
 /*
  * Array mensajes de modal

@@ -1,3 +1,5 @@
 const CONFIG = {
-    API_URL:  "http://192.168.1.4:5000"
+    API_URL: window.location.hostname === "localhost"
+        ? "http://localhost:5000"
+        : "https://tu-backend-en-produccion.onrender.com"
 };

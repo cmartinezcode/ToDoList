@@ -1,0 +1,16 @@
+import { Router } from "express";
+import rateLimit from "express-rate-limit";
+import { login, register } from "../controllers/auth.controller.js";
+
+const router = Router();
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: { message: "Demasiados intentos, intenta de nuevo en 15 minutos" },
+});
+
+router.post("/login", loginLimiter, login);
+router.post("/register", register);
+
+export default router;
