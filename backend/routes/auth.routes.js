@@ -6,7 +6,7 @@ const router = Router();
 
 const loginLimiter = rateLimit({
   windowMs: 30 * 60 * 1000,
-  max: 3,
+  max: 6,
   message: { message: "Demasiados intentos, intenta de nuevo en 30 minutos" },
 });
 

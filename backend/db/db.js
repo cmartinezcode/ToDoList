@@ -1,7 +1,7 @@
 import { Pool } from "pg";
 import "dotenv/config";
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL_EXTERNAL,
+    connectionString: process.env.DATABASE_URL,
     ssl: {
     rejectUnauthorized: false, // Permite conectar a Render sin necesidad de descargar un certificado CA local
   },
