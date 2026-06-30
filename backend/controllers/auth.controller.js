@@ -22,6 +22,8 @@ export const login = async (req, res) => {
 
     const { username, password } = parsed.data;
 
+    console.log(username,password)
+
     const result = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
 
     if (result.rows.length === 0) {
