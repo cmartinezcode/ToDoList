@@ -9,7 +9,7 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="../css/output.css" />
-    <title>Register Todo-List</title>
+    <title>Register To-Do App</title>
   </head>
   <body class="bg-primary font-mono min-h-screen flex flex-col">
     <header
@@ -24,81 +24,90 @@
         >Ingresar</a
       >
     </header>
-
-    <div class="flex-1 flex my-6 justify-center items-center">
-      <div class="w-full max-w-100 mx-4 shadow rounded-md bg-white">
-        <div
-          class="bg-secondary header-form flex justify-center rounded-t-md py-3 relative"
+    <main class="flex mb-6 grow flex-col sm:flex-row items-center justify-center px-6 py-4 max-w-5xl mx-auto md:flex-row md:gap-12 w-full">
+      <div class="w-3/5">
+        <img src="../assets/register.png" alt="" />
+      </div>
+      <div>
+        <!-- <span
+          class="text-center brand-font text-3xl md:text-5xl font-bold text-[#1E3A5F] leading-tight mb-3"
         >
-          <h3 class="text-white text-xl py-2">Registro</h3>
-        </div>
-        <div class="header-body flex flex-col items-center">
-          <div class="w-4/5 flex justify-center my-4 h-9">
-            <div
-              class="bg-secondary rounded-l-md flex justify-center items-center px-3"
-            >
-              <i class="text-white fa-solid fa-user"></i>
-            </div>
-            <input
-              id="username"
-              class="shadow text-sm p-1 flex-1 rounded-r-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
-              type="text"
-              placeholder="Usuario"
-            />
+          Inicia sección
+        </span> -->
+
+        <p class="text-lg font-semibold text-slate-600 mb-6">
+          Se parte de la manada <br class="md:hidden">y logra tus objetivos.
+        </p>
+      </div>
+      <div class="w-4/5">
+        <div class="mx-4 shadow rounded-md bg-[#eff6f6]">
+          <div
+            class="bg-secondary header-form flex justify-center rounded-t-md py-3 relative"
+          >
+            <h3 class="text-white text-2xl py-2">Registro</h3>
           </div>
-          <div class="relative flex justify-center w-4/5 h-9 mb-5">
-            <div
-              class="bg-secondary rounded-l-md flex justify-center items-center px-3"
-            >
-              <i class="text-white fa-solid fa-lock"></i>
+          <div class="header-body flex flex-col gap-4 items-center py-3">
+            <div class="w-4/5 flex flex-col justify-center ">
+              <label for="" class="text-lg font-bold text-[#1E3A5F]">Usuario</label>
+              <input
+                id="username"
+                class="shadow text-sm pl-3 py-2 flex-1 rounded-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
+                type="text"
+                placeholder="Usuario"
+              />
             </div>
-            <input
-              id="password"
-              class="shadow text-sm p-1 flex-1 rounded-r-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
-              type="password"
-              placeholder="Contraseña"
-            />
-            <button
-              type="button"
-              id="togglePassword"
-              class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <i id="eyeIcon" class="fa-regular fa-eye-slash text-md"></i>
-            </button>
-          </div>
-          <div class="relative flex justify-center w-4/5 h-9 mb-5">
             <div
-              class="bg-secondary rounded-l-md flex justify-center items-center px-3"
+              class="flex flex-col justify-center w-4/5 "
             >
-              <i class="text-white fa-solid fa-lock"></i>
+              <label for="" class="text-lg font-bold text-[#1E3A5F]">Contraseña</label>
+              <div class="flex w-full relative">
+                <input
+                  id="password"
+                  class="shadow text-sm pl-3 py-2 flex-1 rounded-md  bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
+                  type="password"
+                  placeholder="Contraseña"
+                />
+                <button
+                  type="button"
+                  id="togglePassword"
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <i id="eyeIcon" class="fa-regular fa-eye-slash text-md"></i>
+                </button>
+              </div>
             </div>
-            <input
-              id="passwordConfirm"
-              class="shadow text-sm p-1 flex-1 rounded-r-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
-              type="password"
-              placeholder="Contraseña"
-            />
-            <button
-              type="button"
-              id="togglePassword"
-              class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <i id="eyeIcon" class="fa-regular fa-eye-slash text-md"></i>
-            </button>
-          </div>
-          <div class="w-2/5 gap-2 flex justify-center">
-            <button
-              type="submit"
-              id="registerButton"
-              onclick="sendDataUser()"
-              class="bg-secondary cursor-pointer px-3 py-1 rounded-md text-white mb-3"
-            >
-              Registro
-            </button>
+            <div class="flex flex-col justify-center w-4/5  mb-5">
+              <label for="" class="text-lg font-bold text-[#1E3A5F]">Confirmar contraseña</label>
+              <div class="flex w-full relative">
+                <input
+                  id="passwordConfirm"
+                  class="shadow text-sm pl-3 py-2 flex-1 rounded-md  bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
+                  type="password"
+                  placeholder="Contraseña"
+                />
+                <button
+                  type="button"
+                  id="togglePassword"
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <i id="eyeIconConfirm" class="fa-regular fa-eye-slash text-md"></i>
+                </button>
+              </div>
+            </div>
+            <div class="w-2/5 text-lg gap-2 flex justify-center">
+              <button
+                type="submit"
+                id="registerButton"
+                onclick="sendDataUser()"
+                class="bg-secondary cursor-pointer px-3 py-1 rounded-md text-white mb-3"
+              >
+                Registro
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </main>
 
     <div
       id="modalCreateUser"
@@ -131,7 +140,7 @@
       </div>
     </div>
 
-     <div
+    <div
       id="modalErrorPassword"
       class="fixed hidden inset-0 bg-black/50 items-center justify-center p-4"
     >
@@ -145,7 +154,7 @@
             <i class="fa-solid fa-square-xmark text-red-700/70"></i>
           </div>
 
-          <h3 class="text-lg font-bold ">¡Error en el registro!</h3>
+          <h3 class="text-lg font-bold">¡Error en el registro!</h3>
           <p class="text-smt text-red-700/70 mt-1">
             Las contraseñas no coinciden
           </p>
@@ -161,7 +170,29 @@
         </div>
       </div>
     </div>
-    
+
+    <!-- Modal Error Servidor -->
+    <div id="modalErrorServer"
+      class="fixed hidden inset-0 bg-black/50 items-center justify-center p-4 z-50"
+    >
+      <div class="bg-white p-6 rounded-xl shadow-xl max-w-sm w-full">
+        <div class="text-center">
+          <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full mb-4">
+            <i id="iconErrorServer" class="fa-solid fa-circle-exclamation text-red-600 text-3xl"></i>
+          </div>
+          <h3 id="titleErrorServer" class="text-lg font-bold text-gray-900">Error</h3>
+          <p id="messageErrorServer" class="text-sm text-gray-500 mt-1"></p>
+        </div>
+        <div class="mt-5">
+          <button id="closeErrorServer"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors cursor-pointer"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+
     <footer class="border-t-[.5px] bg-primary shadow">
       <div
         class="w-full bg-transparent py-6 px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[#1E3A5F]/90 max-w-7xl text-lg mx-auto"

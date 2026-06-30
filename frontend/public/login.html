@@ -7,70 +7,73 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="../css/output.css" rel="stylesheet" />
-
-    <style></style>
     <title>Iniciar Sesión - Todo-List</title>
   </head>
+
   <body class="font-mono min-h-screen flex flex-col bg-primary">
     <header
-      class="w-full flex gap-3 px-6 py-4 border shadow justify-between items-center bg-primary"
+      class="w-full flex gap-3 px-6 py-4 border-b border-amber-50 shadow justify-between items-center bg-primary"
     >
       <span class="brand-font text-xl font-semibold text-[#1E3A5F]"
         >To-Do App</span
       >
       <a
-        href="login.html"
-        class="bg-secondary text-md font-bold transition-all duration-100 hover:-translate-y-1 text-white px-3 py-2 rounded-full hover:bg-[#1E3A5F]"
-        >Ingresar</a
+        href="../index.html"
+        class="bg-secondary text-lg font-bold transition-all duration-100 hover:-translate-y-1 text-white px-3 py-1 rounded-full hover:bg-[#1E3A5F]"
+        >Home</a
       >
     </header>
-    <main class="my-10 flex flex-1 justify-center items-center">
-      <div class="flex flex-1 justify-center items-center">
-        <div class="w-full max-w-100 mx-4 shadow rounded-md bg-white">
+    <main
+      class="flex mb-6 grow flex-col sm:flex-row items-center justify-center px-6 py-4 max-w-5xl mx-auto md:flex-row md:gap-12 w-full"
+    >
+      <div class="w-3/5">
+        <img src="../assets/login.png" alt="" />
+      </div>
+      <div>
+        <p class="text-lg font-semibold text-slate-600 mb-6">
+          Tus tareas esperan a ser realizadas.
+        </p>
+      </div>
+      <div class="flex justify-center items-center w-4/5">
+        <div class="w-full max-w-100 shadow rounded-md bg-[#eff6f6]">
           <div
             class="bg-secondary flex items-center gap-6 justify-center rounded-t-md py-3"
           >
-            <a href="../index.html"
-              ><i class="fa-solid fa-arrow-left text-white"></i
-            ></a>
-            <h3 class="text-white text-xl py-2">Ingresar</h3>
+            <h3 class="text-white text-2xl py-2">Iniciar sección</h3>
           </div>
-          <div class="header-body flex flex-col items-center">
-            <div class="w-4/5 flex justify-center my-4 h-9">
-              <div
-                class="bg-secondary rounded-l-md flex justify-center items-center px-3"
+          <div class="flex flex-col items-center gap-4 my-4">
+            <div class="w-4/5 flex flex-col justify-center">
+              <label for="username" class="text-lg font-bold text-[#1E3A5F]"
+                >Usuario</label
               >
-                <i class="text-white fa-solid fa-user"></i>
-              </div>
               <input
                 id="username"
-                class="shadow text-sm p-1 flex-1 rounded-r-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
+                class="shadow text-sm pl-3 py-2 flex-1 rounded-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
                 type="text"
                 placeholder="Usuario"
               />
             </div>
-            <div class="relative flex justify-center w-4/5 h-9 mb-5">
-              <div
-                class="bg-secondary rounded-l-md flex justify-center items-center px-3"
+            <div class="relative flex flex-col justify-center w-4/5">
+              <label for="username" class="text-lg font-bold text-[#1E3A5F]"
+                >Contraseña</label
               >
-                <i class="text-white fa-solid fa-lock"></i>
+              <div class="flex w-full relative">
+                <input
+                  id="password"
+                  class="shadow text-sm pl-3 py-2 flex-1 rounded-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
+                  type="password"
+                  placeholder="Contraseña"
+                />
+                <button
+                  type="button"
+                  id="togglePassword"
+                  class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <i id="eyeIcon" class="fa-regular fa-eye-slash text-lg"></i>
+                </button>
               </div>
-              <input
-                id="password"
-                class="shadow text-sm p-1 flex-1 rounded-r-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
-                type="password"
-                placeholder="Contraseña"
-              />
-              <button
-                type="button"
-                id="togglePassword"
-                class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
-              >
-                <i id="eyeIcon" class="fa-regular fa-eye-slash text-lg"></i>
-              </button>
             </div>
           </div>
 
@@ -78,15 +81,15 @@
             <button
               id="loginButton"
               onclick="sendDataUser()"
-              class="bg-secondary cursor-pointer px-3 py-1 w-2/5 rounded-md text-white mb-3"
+              class="bg-secondary cursor-pointer transition-all duration-100 hover:-translate-y-1 text-lg py-1 px-4 rounded-md text-white mb-3"
             >
               Entrar
             </button>
-            <div class="flex gap-3 flex-col justify-center items-center mb-5">
-              <span class="text-[#1E3A5F]">No tienes una cuenta?</span>
+            <div class="flex gap-3 justify-center items-center mb-5">
+              <span class="text-[#1E3A5F] text-lg">No tienes una cuenta?</span>
               <a
                 href="register.html"
-                class="bg-secondary text-md font-bold transition-all duration-100 hover:-translate-y-1 text-white px-3 py-2 rounded-full hover:bg-[#1E3A5F]"
+                class="text-lg font-bold transition-all duration-100 hover:-translate-y-1 p-2 rounded-full hover:bg-[#1E3A5F] hover:text-white"
                 >Registrate</a
               >
             </div>
@@ -95,7 +98,31 @@
       </div>
     </main>
 
-    <footer class="border-t-[.5px] bg-primary shadow">
+    <!-- Modal Error Servidor -->
+    <div id="modalErrorLogin"
+      class="fixed hidden inset-0 bg-black/50 items-center justify-center p-4 z-50"
+    >
+      <div class="bg-white p-6 rounded-xl shadow-xl max-w-sm w-full">
+        <div class="text-center">
+          <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full mb-4">
+            <i id="iconErrorLogin" class="fa-solid fa-circle-exclamation text-red-600 text-3xl"></i>
+          </div>
+          <h3 id="titleErrorLogin" class="text-lg font-bold text-gray-900">Error</h3>
+          <p id="messageErrorLogin" class="text-sm text-gray-500 mt-1"></p>
+        </div>
+        <div class="mt-5">
+          <button id="closeErrorLogin"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors cursor-pointer"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer
+      class="w-full flex gap-3 px-6 py-4 border-t border-amber-50 shadow justify-between items-center bg-primary"
+    >
       <div
         class="w-full bg-transparent py-6 px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[#1E3A5F]/90 max-w-7xl text-lg mx-auto"
       >

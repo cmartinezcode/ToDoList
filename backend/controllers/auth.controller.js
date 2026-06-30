@@ -35,7 +35,7 @@ export const login = async (req, res) => {
       return res.status(401).json({ message: "Contraseña inválida" });
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.TOKEN, { expiresIn: "2h" });
+    const token = jwt.sign({ id: user.id, username: user.username }, process.env.TOKEN, { expiresIn: "2h" });
 
     res.status(200).json({ message: "Login exitoso", token, success: true });
   } catch (error) {

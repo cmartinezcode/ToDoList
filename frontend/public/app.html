@@ -8,35 +8,51 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
-    <link href="../css/output.css" rel="stylesheet" /> 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>  
+    <link href="../css/output.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
 
-
   <body class="font-mono bg-gray-600/30">
-    <div
-      class="flex justify-center min-h-screen"
-    >
-      <div class="bg-white w-full md:w-3xl rounded-2xl shadow-lg">
+    <div class="flex justify-center min-h-screen">
+      <div class="bg-primary w-full md:w-3xl rounded-2xl shadow-lg">
         <!-- header main -->
         <div
           id="container-header"
-          class="bg-white w-full shadow mb-2 items-center pb-1 fixed top-0 xs:left-0 md:w-3xl  h-56 p-3"
+          class="bg-primary w-full shadow mb-2 items-center pb-1 fixed top-0 xs:left-0 md:w-3xl h-52 p-3"
         >
-          <div class="mb-8 mt-6">
-            <div class="flex gap-4 justify-center items-center w-full">
-              <i class="fa-solid fa-business-time text-3xl text-cyan-700"></i>
-              <p class="text-3xl font-bold text-gray-700">ToDo List</p>
-            </div>
-            <div class="flex justify-center items-center gap-2">
-              <p>Organiza tu día</p>
-              <i class="text-red-700 fa-solid fa-heart text-md"> </i>
+          <div class="py-3">
+            <div class="flex justify-between px-4 items-center w-full">
+              <div class="flex flex-col justify-center items-center">
+                <p class="text-[#1E3A5F] text-md">Bienvenido, <span id="usernameDisplay"></span><br /></p>
+                <p class="text-3xl font-bold text-[#1E3A5F]">To-Do App</p>
+              </div>
+
+              <button
+                onclick="logout()"
+                class="cursor-pointer text-[#1E3A5F] hover:text-red-600 transition-colors"
+                title="Cerrar sesión"
+              >
+                <i class="fa-solid fa-right-from-bracket text-4xl"></i>
+              </button>
             </div>
           </div>
           <ul class="flex justify-between mt-2 mb-2">
-            <li onclick="getTasks()" class=" cursor-pointer text-lg">Tareas</li>
-            <li onclick="filterPendingTasks()" class="cursor-pointer text-lg">Pendientes</li>
-            <li onclick="filterCompletedTasks()" class="cursor-pointer text-lg">
+            <li
+              onclick="getTasks()"
+              class="text-[#1E3A5F] cursor-pointer text-lg"
+            >
+              Tareas
+            </li>
+            <li
+              onclick="filterPendingTasks()"
+              class="text-[#1E3A5F] cursor-pointer text-lg"
+            >
+              Pendientes
+            </li>
+            <li
+              onclick="filterCompletedTasks()"
+              class="text-[#1E3A5F] cursor-pointer text-lg"
+            >
               Completadas
             </li>
           </ul>
@@ -48,7 +64,7 @@
               id="taskText"
               type="text"
               placeholder="Nueva tarea..."
-              class="text-lg flex-1 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-blue-300"
+              class="text-lg bg-[#eff6f6] flex-1 rounded-lg p-2 outline-none ring-2 ring-[#1E3A5F]"
             />
 
             <i
@@ -59,20 +75,18 @@
         </div>
 
         <!-- Lista de tareas -->
-        <ul class="pt-56 mt-2 pl-2 pr-2 space-y-2" id="taskList"></ul>
+        <ul class="pt-52 mt-2 pl-2 pr-2 space-y-2" id="taskList"></ul>
       </div>
     </div>
 
-   
-
-<!-- Estructura del Modal (Empieza oculto con 'hidden')
+    <!-- Estructura del Modal (Empieza oculto con 'hidden')
 Primer div es la capa difunidad
 empieza con hidden
 sin flex -> hacemos toogle en js
 -->
     <div
       id="modal"
-      class=" hidden fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-xs p-4"
+      class="hidden fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-xs p-4"
     >
       <!-- Contenedor del contenido (Animado y con tamaño máximo) -->
       <div
@@ -83,7 +97,10 @@ sin flex -> hacemos toogle en js
           class="flex items-center justify-between border-b border-gray-100 px-6 py-4"
         >
           <div id="iconModal"></div>
-          <h3 id="titleModal" class="text-lg md:text-2xl font-semibold text-gray-900">
+          <h3
+            id="titleModal"
+            class="text-lg md:text-2xl font-semibold text-gray-900"
+          >
             !Titulo modal!
             <!-- Lo cambiaremos segun sea el caso -->
           </h3>
@@ -97,14 +114,19 @@ sin flex -> hacemos toogle en js
 
         <div class="flex flex-col justify-center">
           <!-- Cuerpo -->
-        <div
-          id="messageModal"
-          class=" md:text-lg px-6 py-4 text-sm text-gray-600 leading-relaxed"
-        >
-          Mensaje modal (será cambiado segun sea el caso)
-        </div>
-        <!-- input en caso de editar tarea -->
-         <input id="inputTaskName" type="text" class="hidden mx-6 p-2 shadow rounded mb-4" placeholder="Ingrese la tarea">
+          <div
+            id="messageModal"
+            class="md:text-lg px-6 py-4 text-sm text-gray-600 leading-relaxed"
+          >
+            Mensaje modal (será cambiado segun sea el caso)
+          </div>
+          <!-- input en caso de editar tarea -->
+          <input
+            id="inputTaskName"
+            type="text"
+            class="hidden mx-6 p-2 shadow rounded mb-4"
+            placeholder="Ingrese la tarea"
+          />
         </div>
         <!-- Pie de página (Botones de acción) -->
         <div
@@ -121,14 +143,14 @@ sin flex -> hacemos toogle en js
           <button
             id="acceptModal"
             type="button"
-            class=" md:text-lg md:my-2 cursor-pointer px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors"
+            class="md:text-lg md:my-2 cursor-pointer px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors"
           >
             Aceptar
           </button>
         </div>
       </div>
     </div>
-       <script src="../js/config.js"></script>
+    <script src="../js/config.js"></script>
     <script src="../js/app.js"></script>
   </body>
 </html>

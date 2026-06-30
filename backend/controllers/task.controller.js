@@ -20,7 +20,7 @@ export const getTasks = async (req, res) => {
     res.json(result.rows);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error al obtener tareas" });
+    res.status(500).json({ message: "Error al obtener tareas" });
   }
 };
 
@@ -28,7 +28,7 @@ export const createTask = async (req, res) => {
   try {
     const parsed = createTaskSchema.safeParse(req.body);
     if (!parsed.success) {
-      return res.status(400).json({ error: parsed.error.issues[0].message });
+      return res.status(400).json({ message: parsed.error.issues[0].message });
     }
 
     const { name, status } = parsed.data;
@@ -41,7 +41,7 @@ export const createTask = async (req, res) => {
     res.json(result.rows[0]);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error al guardar" });
+    res.status(500).json({ message: "Error al guardar" });
   }
 };
 
@@ -59,7 +59,7 @@ export const deleteTask = async (req, res) => {
     res.json({ message: `Tarea ${req.params.id} eliminada` });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error al eliminar" });
+    res.status(500).json({ message: "Error al eliminar" });
   }
 };
 
@@ -67,7 +67,7 @@ export const updateTask = async (req, res) => {
   try {
     const parsed = updateTaskSchema.safeParse(req.body);
     if (!parsed.success) {
-      return res.status(400).json({ error: parsed.error.issues[0].message });
+      return res.status(400).json({ message: parsed.error.issues[0].message });
     }
 
     const { name, status } = parsed.data;
@@ -84,6 +84,6 @@ export const updateTask = async (req, res) => {
     res.json({ message: `Tarea ${req.params.id} editada` });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error al editar" });
+    res.status(500).json({ message: "Error al editar" });
   }
 };

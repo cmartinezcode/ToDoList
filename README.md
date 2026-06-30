@@ -1,8 +1,20 @@
 # 📝 ToDo List Full Stack
 
-Aplicación de gestión de tareas construida con Express.js, PostgreSQL y JavaScript vanilla. Permite registro, autenticación por JWT y CRUD completo de tareas con filtros.
+Aplicación de gestión de tareas construida con Express.js, PostgreSQL y JavaScript vanilla. Permite registro, autenticación por JWT, CRUD completo de tareas con filtros y manejo de errores mediante modales interactivos.
 
 ---
+
+## ✨ Características
+
+- Registro e inicio de sesión con JWT
+- CRUD completo de tareas (crear, leer, editar, eliminar)
+- Filtros por tareas pendientes / completadas
+- Validación de datos con Zod (servidor y cliente)
+- Modales de error para respuestas del servidor (usuario en uso, contraseña inválida, etc.)
+- Nombre de usuario visible en el panel principal
+- Rate limiting: máximo 3 intentos de login por IP cada 30 minutos
+- Contraseñas hasheadas con bcrypt
+- Diseño responsive con Tailwind CSS 4
 
 ## 🚀 Tecnologías
 
@@ -22,7 +34,8 @@ Aplicación de gestión de tareas construida con Express.js, PostgreSQL y JavaSc
 |------------|-----|
 | 📦 Vanilla JS | Lógica (ES modules) |
 | 🎨 Tailwind CSS 4 | Estilos |
-| 📡 Axios | Peticiones HTTP |
+| 📡 Axios (CDN) | Peticiones HTTP |
+| 🟦 Modales dinámicos | Manejo de errores del servidor |
 
 ---
 
@@ -59,7 +72,9 @@ toDoListFull/
 │   │   ├── input.css             # 🎨 Configuración de Tailwind
 │   │   └── output.css            # 🎨 CSS compilado
 │   └── assets/
-│       └── dog-hero.avif         # 🖼️  Imagen de la landing
+│       ├── dog-hero.avif         # 🖼️  Imagen de la landing
+│       ├── login.png             # 🔑 Ilustración página de login
+│       └── register.png          # 📝 Ilustración página de registro
 ```
 
 ---
@@ -172,7 +187,7 @@ Authorization: Bearer <token>
 | Medida | Detalle |
 |--------|---------|
 | 🛡️ Helmet | Headers de protección HTTP habilitados |
-| ⏱️ Rate limiting | Máximo 10 intentos de login cada 15 min por IP |
+| ⏱️ Rate limiting | Máximo 3 intentos de login cada 30 min por IP |
 | 🔐 JWT | Tokens con expiración de 2 horas |
 | 🔒 bcrypt | Contraseñas hasheadas con 10 rounds |
 | ✅ Zod | Validación de entrada en todos los endpoints |

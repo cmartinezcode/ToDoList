@@ -5,9 +5,9 @@ import { login, register } from "../controllers/auth.controller.js";
 const router = Router();
 
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 10,
-  message: { message: "Demasiados intentos, intenta de nuevo en 15 minutos" },
+  windowMs: 30 * 60 * 1000,
+  max: 3,
+  message: { message: "Demasiados intentos, intenta de nuevo en 30 minutos" },
 });
 
 router.post("/login", loginLimiter, login);
