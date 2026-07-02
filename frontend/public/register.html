@@ -24,31 +24,29 @@
         >Ingresar</a
       >
     </header>
-    <main class="flex mb-6 grow flex-col sm:flex-row items-center justify-center px-6 py-4 max-w-5xl mx-auto md:flex-row md:gap-12 w-full">
+    <main
+      class="flex mb-6 grow flex-col sm:flex-row items-center justify-center px-6 py-4 max-w-5xl mx-auto md:flex-row md:gap-12 w-full"
+    >
       <div class="w-3/5">
         <img src="../assets/register.png" alt="" />
       </div>
-      <div>
-        <!-- <span
-          class="text-center brand-font text-3xl md:text-5xl font-bold text-[#1E3A5F] leading-tight mb-3"
-        >
-          Inicia sección
-        </span> -->
-
+      <div class="text-center">
         <p class="text-lg font-semibold text-slate-600 mb-6">
-          Se parte de la manada <br class="md:hidden">y logra tus objetivos.
+          Se parte de la manada y logra tus objetivos.
         </p>
       </div>
-      <div class="w-4/5">
-        <div class="mx-4 shadow rounded-md bg-[#eff6f6]">
+      <div class="w-full">
+        <div class="shadow rounded-md bg-[#eff6f6]">
           <div
             class="bg-secondary header-form flex justify-center rounded-t-md py-3 relative"
           >
             <h3 class="text-white text-2xl py-2">Registro</h3>
           </div>
           <div class="header-body flex flex-col gap-4 items-center py-3">
-            <div class="w-4/5 flex flex-col justify-center ">
-              <label for="" class="text-lg font-bold text-[#1E3A5F]">Usuario</label>
+            <div class="w-4/5 flex flex-col justify-center">
+              <label for="" class="text-lg font-bold text-[#1E3A5F]"
+                >Usuario</label
+              >
               <input
                 id="username"
                 class="shadow text-sm pl-3 py-2 flex-1 rounded-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
@@ -56,14 +54,14 @@
                 placeholder="Usuario"
               />
             </div>
-            <div
-              class="flex flex-col justify-center w-4/5 "
-            >
-              <label for="" class="text-lg font-bold text-[#1E3A5F]">Contraseña</label>
+            <div class="flex flex-col justify-center w-4/5">
+              <label for="" class="text-lg font-bold text-[#1E3A5F]"
+                >Contraseña</label
+              >
               <div class="flex w-full relative">
                 <input
                   id="password"
-                  class="shadow text-sm pl-3 py-2 flex-1 rounded-md  bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
+                  class="shadow text-sm pl-3 py-2 flex-1 rounded-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
                   type="password"
                   placeholder="Contraseña"
                 />
@@ -76,12 +74,14 @@
                 </button>
               </div>
             </div>
-            <div class="flex flex-col justify-center w-4/5  mb-5">
-              <label for="" class="text-lg font-bold text-[#1E3A5F]">Confirmar contraseña</label>
+            <div class="flex flex-col justify-center w-4/5 mb-5">
+              <label for="" class="text-lg font-bold text-[#1E3A5F]"
+                >Confirmar contraseña</label
+              >
               <div class="flex w-full relative">
                 <input
                   id="passwordConfirm"
-                  class="shadow text-sm pl-3 py-2 flex-1 rounded-md  bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
+                  class="shadow text-sm pl-3 py-2 flex-1 rounded-md bg-white transition-colors duration-300 focus:border-2 focus:border-cyan-600 border-2 outline-none border-gray-700/70 focus:placeholder:text-gray-600/40"
                   type="password"
                   placeholder="Contraseña"
                 />
@@ -90,7 +90,10 @@
                   id="togglePassword"
                   class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  <i id="eyeIconConfirm" class="fa-regular fa-eye-slash text-md"></i>
+                  <i
+                    id="eyeIconConfirm"
+                    class="fa-regular fa-eye-slash text-md"
+                  ></i>
                 </button>
               </div>
             </div>
@@ -172,19 +175,28 @@
     </div>
 
     <!-- Modal Error Servidor -->
-    <div id="modalErrorServer"
+    <div
+      id="modalErrorServer"
       class="fixed hidden inset-0 bg-black/50 items-center justify-center p-4 z-50"
     >
       <div class="bg-white p-6 rounded-xl shadow-xl max-w-sm w-full">
         <div class="text-center">
-          <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full mb-4">
-            <i id="iconErrorServer" class="fa-solid fa-circle-exclamation text-red-600 text-3xl"></i>
+          <div
+            class="mx-auto flex items-center justify-center h-12 w-12 rounded-full mb-4"
+          >
+            <i
+              id="iconErrorServer"
+              class="fa-solid fa-circle-exclamation text-red-600 text-3xl"
+            ></i>
           </div>
-          <h3 id="titleErrorServer" class="text-lg font-bold text-gray-900">Error</h3>
+          <h3 id="titleErrorServer" class="text-lg font-bold text-gray-900">
+            Error
+          </h3>
           <p id="messageErrorServer" class="text-sm text-gray-500 mt-1"></p>
         </div>
         <div class="mt-5">
-          <button id="closeErrorServer"
+          <button
+            id="closeErrorServer"
             class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors cursor-pointer"
           >
             Cerrar
