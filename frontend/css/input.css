@@ -7,4 +7,6 @@
   --animate-pulse-once: pulse 3s ease-in-out 1;
   --font-body: "Inter", sans-serif;
   --spacing-sidebar: 18rem;
+  --shadow-top: 0 -1px 3px 0 rgb(0 0 0 / 0.1),
+                0 -1px 2px -1px rgb(0 0 0 / 0.1);
 }
