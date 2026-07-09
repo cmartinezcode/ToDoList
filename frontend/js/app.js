@@ -1,7 +1,3 @@
-/*
- * Declaracion de variables globales
- */
-
 const token = localStorage.getItem("token");
 
 if (!token) {
@@ -22,9 +18,6 @@ const acceptModal = document.getElementById("acceptModal");
 const taskText = document.getElementById("taskText");
 let idTaskDelete = null;
 
-/*
- * Array mensajes de modal
- */
 
 let mesgModal = [
 	{
@@ -67,9 +60,6 @@ let mesgModal = [
 	},
 ];
 
-/*
- * Funciones
- */
 
 const modal = document.getElementById("modal");
 
@@ -174,11 +164,6 @@ function renderTasks(tasks) {
 	});
 }
 
-/*Mostrar modal con metodo toggle */
-
-/*
- * Funciones asincronas al servidor
- */
 
 function verificedTaskDuplicate() {
 	renderModal(mesgModal[4], false, closeModal);
@@ -216,8 +201,8 @@ async function createTask() {
 			},
 		);
 
-		taskText.value = ""; // formateamos el input
-		await getTasks(); // esperamos las tareas nuevamente
+		taskText.value = ""; 
+		await getTasks(); 
 		taskText.focus();
 	} catch (error) {
 		showServerErrorModal(error);
@@ -365,4 +350,3 @@ taskText.addEventListener("keydown", (e) => {
 	}
 });
 
-// setInterval(getTasks, 5000); interfiere con el filtro

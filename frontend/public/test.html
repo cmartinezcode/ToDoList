@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>To-Do App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+    <link href="../css/output.css" rel="stylesheet" />
+  </head>
+
+  <body class="font-mono bg-gray-600/30">
+    <div class="flex justify-center min-h-screen">
+      <div class="bg-primary w-full md:w-3xl rounded-2xl shadow-lg">
+        <!-- header main -->
+        <div
+          id="container-header"
+          class="bg-primary w-full shadow mb-2 items-center pb-1 fixed top-0 xs:left-0 md:w-3xl h-52 p-3"
+        >
+          <div class="py-3">
+            <div class="flex justify-between px-4 items-center w-full">
+              <div class="flex flex-col justify-center items-center">
+                <p class="text-[#1E3A5F] text-md">
+                  Bienvenido, <span id="usernameDisplay"></span><br />
+                </p>
+                <p class="text-3xl font-bold text-[#1E3A5F]">
+                  <a href="../index.html">To-Do App</a>
+                </p>
+              </div>
+              <button
+                type="submit"
+                class="bg-secondary text-md cursor-pointer px-3 py-1 rounded-md text-white mb-3"
+              >
+                <a href="register.html"
+                  >☁️ Guardar <br class="md:hidden" />
+                  en la nube</a
+                >
+              </button>
+            </div>
+          </div>
+          <ul class="flex justify-center items-center gap-4 my-2">
+            <i class="fa-solid fa-filter text-[#1E3A5F] text-xl"></i>
+            <li
+              id="allButton"
+              onclick="getTasks()"
+              class="text-[#1E3A5F] cursor-pointer text-lg hidden md:block border p-1 rounded-lg"
+            >
+              <i class="fa-solid fa-clipboard-list"></i>
+              Todas
+            </li>
+            <li
+              id="pendingButton"
+              onclick="filterPendingTasks()"
+              class="text-[#1E3A5F] cursor-pointer text-lg border p-1 rounded-lg"
+            >
+              <i class="fa-solid fa-clock"></i>
+              Pendientes
+            </li>
+            <li
+              id="completedButton"
+              onclick="filterCompletedTasks()"
+              class="text-[#1E3A5F] cursor-pointer text-lg border p-1 rounded-lg"
+            >
+              <i class="fa-solid fa-circle-check"></i>
+              Completadas
+            </li>
+          </ul>
+
+          <!-- Input -->
+          <div class="flex items-center gap-3 mb-5">
+            <!-- items-center es igual a align-item: center-->
+            <input
+              id="taskText"
+              type="text"
+              placeholder="Nueva tarea..."
+              class="text-lg bg-[#eff6f6] flex-1 rounded-lg p-2 outline-none ring-2 ring-[#1E3A5F]"
+            />
+
+            <i
+              id="createTaskButton"
+              class="text-4xl fa-solid fa-circle-plus text-emerald-700 cursor-pointer"
+            ></i>
+          </div>
+        </div>
+
+        <!-- Lista de tareas -->
+        <ul class="pt-52 mt-2 pl-2 pr-2 space-y-2" id="taskList"></ul>
+      </div>
+    </div>
+
+    <!-- Estructura del Modal (Empieza oculto con 'hidden')
+Primer div es la capa difunidad
+empieza con hidden
+sin flex -> hacemos toogle en js
+-->
+    <div
+      id="modal"
+      class="hidden fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-xs p-4"
+    >
+      <!-- Contenedor del contenido (Animado y con tamaño máximo) -->
+      <div
+        class="w-full max-w-md md:max-w-lg bg-white rounded-xl shadow-xl transform transition-all overflow-hidden"
+      >
+        <!-- Encabezado -->
+        <div
+          class="flex items-center justify-between border-b border-gray-100 px-6 py-4"
+        >
+          <div id="iconModal"></div>
+          <h3
+            id="titleModal"
+            class="text-lg md:text-2xl font-semibold text-gray-900"
+          >
+            !Titulo modal!
+            <!-- Lo cambiaremos segun sea el caso -->
+          </h3>
+          <!-- Botón X para cerrar -->
+          <i
+            onclick="closeModal()"
+            class="fa-solid fa-x cursor-pointer md:text-2xl text-gray-400 p-1 rounded hover:bg transition-colors hover:bg-red-800 hover:text-white"
+          >
+          </i>
+        </div>
+
+        <div class="flex flex-col justify-center">
+          <!-- Cuerpo -->
+          <div
+            id="messageModal"
+            class="md:text-lg px-6 py-4 text-sm text-gray-600 leading-relaxed"
+          >
+            Mensaje modal (será cambiado segun sea el caso)
+          </div>
+          <!-- input en caso de editar tarea -->
+          <input
+            id="inputTaskName"
+            type="text"
+            class="hidden mx-6 p-2 shadow rounded mb-4"
+            placeholder="Ingrese la tarea"
+          />
+        </div>
+        <!-- Pie de página (Botones de acción) -->
+        <div
+          class="flex items-center justify-end space-x-3 border-t border-gray-100 bg-gray-50 px-6 py-2"
+        >
+          <button
+            onclick="closeModal()"
+            id="cancelModal"
+            type="button"
+            class="cursor-pointer px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            Cancelar
+          </button>
+          <button
+            id="acceptModal"
+            type="button"
+            class="md:text-lg md:my-2 cursor-pointer px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/test.js"></script>
+  </body>
+</html>
